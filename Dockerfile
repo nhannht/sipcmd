@@ -12,8 +12,10 @@ RUN apt-get install libopal-dev sip-dev libpt-dev -y
 RUN useradd -u 1000 -c "SIP command line utility" -d /var/lib/sipcmd -m -s /bin/bash -u 1000 -U sipcmd
 ENV USER=""
 ENV PASS=""
-ENV SERVER=""
+ENV SERVER="127.0.0.1"
+ENV EXEC="a"
+# ENV PORT="5060"
 COPY --from=builder /src/sipcmd /usr/local/bin/sipcmd
 EXPOSE 5060
-ENTRYPOINT /usr/local/bin/sipcmd -P sip -u ${USER} -c ${PASS} -w ${SERVER}
+ENTRYPOINT /usr/local/bin/sipcmd -P sip -u ${USER} -c ${PASS} -w ${SERVER} -x ${EXEC}
 USER sipcmd
